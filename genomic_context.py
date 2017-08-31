@@ -3,12 +3,13 @@
 from Bio import SeqIO,Entrez
 from sys import argv
 
+# take protein id from argv
 try:
     orig_id=argv[1]
 except IndexError:
     orig_id='SIS32979.1'
 
-Entrez.email = 'xchen18@uoguelph.ca'
+Entrez.email = 'example@xxx.com'
 
 orig_ipg=Entrez.efetch(db='protein',id=orig_id,rettype='ipg',retmode="xml")
 orig_rec=Entrez.read(orig_ipg)
@@ -30,6 +31,7 @@ if strand=="+":
 else:
      gen_strand=2
 
+# upstream 5.5kpb & downstream 5.5kpb
 gen_gb=Entrez.efetch(db='nucleotide',id=genomeid,
         strand=gen_strand,seq_start=int(start)-55000,seq_stop=int(end)+55000,
             rettype='gb',retmode='text')
